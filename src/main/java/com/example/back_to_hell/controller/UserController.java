@@ -1,4 +1,4 @@
-package com.example.back_to_hell.controllers;
+package com.example.back_to_hell.controller;
 
 import com.example.back_to_hell.interfaces.NewUserBody;
 import com.example.back_to_hell.models.UserModel;
@@ -6,6 +6,8 @@ import com.example.back_to_hell.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @Controller
 //@RequestMapping(path = "/users")
@@ -17,11 +19,13 @@ public class UserController {
     public @ResponseBody Iterable<UserModel> getAll() {
         return userRepository.findAll();
     }
-//
-//    @GetMapping("/:id")
-//    public @ResponseBody Optional<UserModel> getById() {
-//        return userRepository.findById(5);
-//    }
+
+    @GetMapping("/{id}")
+    public @ResponseBody
+    Optional<UserModel> getById(@PathVariable(value = "id") int id) {
+        System.out.println(id);
+        return userRepository.findById(id);
+    }
 
     @PostMapping("/")
     public @ResponseBody
